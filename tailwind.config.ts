@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+			"./1776616213478520688.html"
 	],
 	prefix: "",
 	theme: {
@@ -17,9 +18,23 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+				cormorant: ['Cormorant Garamond', 'serif'],
+				golos: ['Golos Text', 'sans-serif'],
+			},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
+				gold: '#C9A84C',
+				'gold-light': '#E8C96B',
+				'gold-dark': '#9A7A2E',
+				burgundy: '#6B0F2B',
+				'burgundy-light': '#8B1F3F',
+				'burgundy-dark': '#4A0820',
+				ivory: '#F5F0E8',
+				'ivory-dark': '#E8E0CC',
+				'dark-bg': '#1A0A0F',
+				'dark-card': '#2A1520',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
@@ -69,6 +84,22 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
+				'fade-in-up': {
+					from: { opacity: '0', transform: 'translateY(40px)' },
+					to: { opacity: '1', transform: 'translateY(0)' },
+				},
+				'fade-in': {
+					from: { opacity: '0' },
+					to: { opacity: '1' },
+				},
+				'scale-in': {
+					from: { opacity: '0', transform: 'scale(0.95)' },
+					to: { opacity: '1', transform: 'scale(1)' },
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% center' },
+					'100%': { backgroundPosition: '200% center' },
+				},
 				'accordion-down': {
 					from: {
 						height: '0'
@@ -88,7 +119,11 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+				'fade-in': 'fade-in 1s ease-out forwards',
+				'scale-in': 'scale-in 0.6s ease-out forwards',
+				'shimmer': 'shimmer 3s linear infinite',
 			}
 		}
 	},
