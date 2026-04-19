@@ -1,348 +1,308 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_BG = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/1fc40790-4f50-4ab0-b710-02a9483ce780.jpg";
-const INTERIOR_IMG = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/aa22c843-38d4-4f85-893f-abd6ee3c8216.jpg";
-const FABERGE_IMG = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/29610ab8-c1c8-4782-b28c-453e0ff09a8e.jpg";
+const IMG_ESTATE = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/be576a7b-b128-42f4-8c46-c99695d122aa.jpg";
+const IMG_PUSHKIN = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/de687406-0e98-4982-b439-47a9c5f37fa7.jpg";
+const IMG_MUSEUM = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/16874f6e-ebcc-4b80-9e13-4d35a30afca9.jpg";
+const IMG_PARK = "https://cdn.poehali.dev/projects/40ed7097-41e0-42ca-8d1c-55dbe3ee837a/files/533ef528-d3b8-421e-802a-67fbf4af487a.jpg";
 
-const timelineItems = [
-  { year: "862", event: "Основание Руси", desc: "Призвание варягов. Рюрик становится первым князем Новгорода, закладывая основу государственности." },
-  { year: "988", event: "Крещение Руси", desc: "Великий князь Владимир принимает православие. Началась новая эпоха духовности и культурного расцвета." },
-  { year: "1147", event: "Основание Москвы", desc: "Юрий Долгорукий основывает город, которому суждено стать сердцем великой державы." },
-  { year: "1613", event: "Дом Романовых", desc: "Михаил Фёдорович венчается на царство. Три столетия династии, изменившей облик мира." },
-  { year: "1703", event: "Рождение Петербурга", desc: "Пётр Великий закладывает новую столицу — «окно в Европу», жемчужину на берегах Невы." },
-  { year: "1812", event: "Отечественная война", desc: "Россия выстояла против армии Наполеона. Народный подвиг, воспетый в бессмертных произведениях." },
-];
-
-const palaces = [
-  { name: "Зимний дворец", city: "Санкт-Петербург", year: "1762", desc: "Главная резиденция российских императоров. 1 057 залов и комнат, 1 945 окон, 117 парадных лестниц.", icon: "Crown" },
-  { name: "Екатерининский дворец", city: "Царское Село", year: "1756", desc: "Шедевр Растрелли с легендарной Янтарной комнатой — восьмым чудом света.", icon: "Gem" },
-  { name: "Петергоф", city: "Петродворец", year: "1723", desc: "«Русский Версаль». 64 фонтана образуют уникальный ансамбль без единого насоса.", icon: "Waves" },
-  { name: "Большой Кремлёвский дворец", city: "Москва", year: "1849", desc: "Парадная резиденция главы государства. Символ непрерывности российской государственности.", icon: "Building" },
-];
-
-const artworks = [
-  { title: "Иконопись", period: "XI–XVII вв.", desc: "Сакральное искусство, соединившее Византию с русским духом" },
-  { title: "Ювелирное дело", period: "XVII–XIX вв.", desc: "Мастера Фаберже создавали шедевры, покорившие весь мир" },
-  { title: "Живопись", period: "XVIII–XIX вв.", desc: "Репин, Айвазовский, Шишкин — галерея русской души" },
-  { title: "Архитектура", period: "XVIII–XIX вв.", desc: "Барокко, классицизм и ампир на берегах Невы и Москвы-реки" },
-  { title: "Литература", period: "XIX–XX вв.", desc: "Пушкин, Толстой, Достоевский — совесть человечества" },
-  { title: "Балет", period: "XIX–XX вв.", desc: "Чайковский и Дягилев подарили миру невиданную красоту танца" },
-];
-
-const stats = [
-  { value: "300+", label: "лет династии Романовых" },
-  { value: "17,1 млн", label: "км² — площадь России" },
-  { value: "1000+", label: "лет письменной истории" },
-  { value: "40+", label: "объектов ЮНЕСКО" },
+const wonders = [
+  {
+    num: "1",
+    icon: "BookOpen",
+    title: "Пушкин",
+    subtitle: "Великий поэт здесь останавливался",
+    img: IMG_PUSHKIN,
+    text: "В старинном особняке нам показали комнату, где останавливался Александр Сергеевич Пушкин. На столе стоит его стакан и гусиное перо. Я стояла на том же месте, где стоял великий поэт, — у меня побежали мурашки!",
+    fact: "Пушкин бывал здесь неоднократно — это дом семьи его жены Натальи Гончаровой",
+  },
+  {
+    num: "2",
+    icon: "Layers",
+    title: "Музей «Бузеон»",
+    subtitle: "Единственный музей бумаги в России",
+    img: IMG_MUSEUM,
+    text: "Название получилось из слов «БУмага» и «музеон». Там можно увидеть водяную мельницу XVIII века, японскую комнату и даже указы Петра Первого. А ещё я своими руками сделала лист бумаги — это волшебство!",
+    fact: "«Бузеон» — единственный в России музей истории бумаги",
+  },
+  {
+    num: "3",
+    icon: "Trees",
+    title: "Парк с прудами",
+    subtitle: "Где гуляли князья и поэты",
+    img: IMG_PARK,
+    text: "Мы гуляли по тенистым аллеям, где когда-то гуляли князья и поэты. Вода в прудах тёмная и спокойная, как в сказке. А старинная беседка «Храм воздуха» открывает вид на всю усадьбу.",
+    fact: "Усадьбе более 300 лет — она основана в начале XVIII века",
+  },
 ];
 
 function useReveal() {
   useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
       { threshold: 0.1 }
     );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 }
 
 function OrnamentLine() {
   return (
-    <div className="ornament-divider my-2">
-      <span className="text-gold text-lg">✦</span>
+    <div className="ornament-divider my-3">
+      <span className="text-gold text-base">✦</span>
     </div>
   );
 }
 
-function NavDot({ active, onClick }: { active: boolean; onClick: () => void }) {
+function Slide({ children, id, bgClass = "" }: { children: React.ReactNode; id: string; bgClass?: string }) {
   return (
-    <button
-      onClick={onClick}
-      className={`rounded-full transition-all duration-300 ${active ? "bg-gold w-6 h-2" : "bg-gold/30 hover:bg-gold/60 w-2 h-2"}`}
-    />
+    <section id={id} className={`min-h-screen flex flex-col justify-center relative overflow-hidden ${bgClass}`}>
+      {children}
+    </section>
   );
 }
 
 export default function Index() {
   useReveal();
-  const [activeSection, setActiveSection] = useState(0);
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+  const refs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = sectionRefs.current.indexOf(entry.target as HTMLElement);
-            if (idx !== -1) setActiveSection(idx);
-          }
-        });
-      },
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const i = refs.current.indexOf(e.target as HTMLElement);
+          if (i !== -1) setActive(i);
+        }
+      }),
       { threshold: 0.4 }
     );
-    sectionRefs.current.forEach((ref) => ref && observer.observe(ref));
-    return () => observer.disconnect();
+    refs.current.forEach((r) => r && obs.observe(r));
+    return () => obs.disconnect();
   }, []);
 
-  const scrollTo = (idx: number) => sectionRefs.current[idx]?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (i: number) => refs.current[i]?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="bg-dark-bg text-ivory font-golos overflow-x-hidden">
+    <div className="bg-[#1C1108] text-ivory font-golos overflow-x-hidden">
+
       {/* Nav dots */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <NavDot key={i} active={activeSection === i} onClick={() => scrollTo(i)} />
+      <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+        {[0,1,2,3,4,5,6].map((i) => (
+          <button key={i} onClick={() => scrollTo(i)}
+            className={`rounded-full transition-all duration-300 ${active === i ? "w-6 h-2 bg-gold" : "w-2 h-2 bg-gold/30 hover:bg-gold/60"}`}
+          />
         ))}
       </div>
 
-      {/* ══════════ HERO ══════════ */}
-      <section ref={(el) => (sectionRefs.current[0] = el)} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center scale-105" style={{ backgroundImage: `url(${HERO_BG})` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/70 via-dark-bg/50 to-dark-bg" />
-        <div className="absolute inset-0 bg-gradient-to-r from-burgundy-dark/40 via-transparent to-burgundy-dark/20" />
+      {/* ══ 1. ТИТУЛ ══ */}
+      <section ref={(el) => (refs.current[0] = el)} className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${IMG_ESTATE})` }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1108]/80 via-[#1C1108]/60 to-[#1C1108]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1C1108]/90 via-transparent to-transparent" />
 
-        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-gold/60" />
-        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-gold/60" />
-        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-gold/60" />
-        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-gold/60" />
+        {/* Угловые рамки */}
+        <div className="absolute top-8 left-8 w-14 h-14 border-t-2 border-l-2 border-gold/50" />
+        <div className="absolute top-8 right-8 w-14 h-14 border-t-2 border-r-2 border-gold/50" />
+        <div className="absolute bottom-8 left-8 w-14 h-14 border-b-2 border-l-2 border-gold/50" />
+        <div className="absolute bottom-8 right-8 w-14 h-14 border-b-2 border-r-2 border-gold/50" />
 
-        <div className="relative z-10 text-center max-w-5xl px-8">
-          <p className="text-gold/80 font-cormorant text-lg tracking-[0.4em] uppercase mb-6 opacity-0 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Торжественная презентация
+        <div className="relative z-10 text-center max-w-4xl px-8">
+          <p className="text-gold/70 tracking-[0.35em] uppercase text-xs mb-3 opacity-0 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            Проект по окружающему миру · 3 «А» класс
           </p>
-          <h1 className="font-cormorant text-7xl md:text-9xl font-light leading-none mb-4 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
-            <span className="gold-shimmer">Императорское</span>
+          <p className="text-ivory/50 tracking-widest text-xs mb-8 opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            МБОУ «Первая школа» поселка Товарково, Калужской области
+          </p>
+
+          <h1 className="font-cormorant font-light leading-tight opacity-0 animate-fade-in-up" style={{ fontSize: "clamp(2.2rem, 6vw, 5rem)", animationDelay: "0.5s" }}>
+            <span className="text-ivory/80">Необычное достояние</span><br />
+            <span className="text-ivory/80">моей малой родины —</span>
           </h1>
-          <h1 className="font-cormorant text-7xl md:text-9xl font-light leading-none mb-10 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
-            Наследие России
+          <h1 className="font-cormorant font-semibold leading-tight mb-8 opacity-0 animate-fade-in-up" style={{ fontSize: "clamp(2.4rem, 7vw, 5.5rem)", animationDelay: "0.8s" }}>
+            <span className="gold-shimmer">Усадьба Полотняный Завод</span>
           </h1>
+
           <OrnamentLine />
-          <p className="font-cormorant italic text-ivory/70 text-xl md:text-2xl mt-6 max-w-2xl mx-auto opacity-0 animate-fade-in" style={{ animationDelay: "1.2s" }}>
-            «Россия — страна, которая соединила в себе Восток и Запад, создав уникальную цивилизацию»
-          </p>
-          <button
-            onClick={() => scrollTo(1)}
-            className="mt-12 opacity-0 animate-fade-in inline-flex items-center gap-3 border border-gold/50 text-gold hover:bg-gold/10 transition-all duration-300 px-8 py-3 tracking-widest text-sm uppercase"
-            style={{ animationDelay: "1.5s" }}
+
+          <div className="mt-6 opacity-0 animate-fade-in" style={{ animationDelay: "1.1s" }}>
+            <p className="font-cormorant italic text-ivory/60 text-xl">Выполнила: Ксения Свитцова</p>
+          </div>
+
+          <button onClick={() => scrollTo(1)}
+            className="mt-10 opacity-0 animate-fade-in inline-flex items-center gap-2 border border-gold/40 text-gold hover:bg-gold/10 px-7 py-3 text-sm tracking-widest uppercase transition-all duration-300"
+            style={{ animationDelay: "1.3s" }}
           >
-            <Icon name="ChevronDown" size={16} />
-            Открыть историю
+            <Icon name="ChevronDown" size={15} />
+            Начать
           </button>
         </div>
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-          <div className="w-px h-12 bg-gradient-to-b from-gold to-transparent animate-pulse opacity-50" />
-        </div>
       </section>
 
-      {/* ══════════ STATS ══════════ */}
-      <div className="bg-burgundy/30 border-y border-gold/20 py-8">
-        <div className="max-w-6xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((s, i) => (
-            <div key={i} className="text-center reveal">
-              <div className="font-cormorant text-3xl md:text-4xl text-gold font-light">{s.value}</div>
-              <div className="text-ivory/50 text-xs uppercase tracking-widest mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ══════════ HISTORY ══════════ */}
-      <section ref={(el) => (sectionRefs.current[1] = el)} className="min-h-screen py-24 px-8 max-w-6xl mx-auto">
-        <div className="reveal text-center mb-16">
-          <p className="text-gold/60 tracking-[0.3em] uppercase text-sm mb-3">Хронология</p>
-          <h2 className="font-cormorant text-5xl md:text-6xl text-ivory font-light">
-            Страницы <span className="gold-shimmer">Великой истории</span>
-          </h2>
-          <OrnamentLine />
-        </div>
-
-        <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden md:block" />
-          <div className="space-y-10">
-            {timelineItems.map((item, i) => (
-              <div key={i} className={`reveal flex flex-col md:flex-row items-center gap-8 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`} style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className={`flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                  <div className="bg-dark-card border border-gold/20 hover:border-gold/50 transition-all duration-300 p-6 hover:bg-burgundy/20">
-                    <div className="font-cormorant text-gold text-4xl font-light mb-2">{item.year}</div>
-                    <div className="font-cormorant text-ivory text-xl font-semibold mb-3">{item.event}</div>
-                    <p className="text-ivory/60 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-                <div className="hidden md:flex w-4 h-4 rounded-full bg-gold border-2 border-dark-bg ring-2 ring-gold/30 flex-shrink-0 z-10" />
-                <div className="flex-1" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ PALACES ══════════ */}
-      <section ref={(el) => (sectionRefs.current[2] = el)} className="relative min-h-screen py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{ backgroundImage: `url(${INTERIOR_IMG})` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg via-dark-bg/95 to-dark-bg" />
-        <div className="relative z-10 max-w-6xl mx-auto px-8">
-          <div className="reveal text-center mb-16">
-            <p className="text-gold/60 tracking-[0.3em] uppercase text-sm mb-3">Архитектура</p>
-            <h2 className="font-cormorant text-5xl md:text-6xl text-ivory font-light">
-              Дворцы <span className="gold-shimmer">Империи</span>
-            </h2>
-            <OrnamentLine />
-            <p className="text-ivory/50 mt-4 max-w-xl mx-auto font-cormorant italic text-lg">
-              Каменные симфонии, воспевающие величие и красоту российской державы
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {palaces.map((palace, i) => (
-              <div key={i} className="reveal group bg-dark-card border border-gold/20 hover:border-gold/60 transition-all duration-500 p-8 hover:bg-burgundy/25 cursor-default" style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 border border-gold/40 group-hover:border-gold flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-gold/10">
-                    <Icon name={palace.icon} fallback="Building" size={20} className="text-gold" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-baseline gap-3 mb-1">
-                      <h3 className="font-cormorant text-2xl text-ivory group-hover:text-gold transition-colors duration-300">{palace.name}</h3>
-                      <span className="text-gold/50 text-xs tracking-widest">{palace.year}</span>
-                    </div>
-                    <p className="text-gold/60 text-xs uppercase tracking-widest mb-3">{palace.city}</p>
-                    <p className="text-ivory/60 text-sm leading-relaxed">{palace.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ ART ══════════ */}
-      <section ref={(el) => (sectionRefs.current[3] = el)} className="min-h-screen py-24 px-8 max-w-6xl mx-auto">
-        <div className="reveal text-center mb-16">
-          <p className="text-gold/60 tracking-[0.3em] uppercase text-sm mb-3">Культура</p>
-          <h2 className="font-cormorant text-5xl md:text-6xl text-ivory font-light">
-            Искусство <span className="gold-shimmer">и Дух</span>
-          </h2>
-          <OrnamentLine />
-        </div>
-        <div className="grid md:grid-cols-3 gap-1">
-          {artworks.map((art, i) => (
-            <div key={i} className="reveal group relative overflow-hidden border border-gold/10 hover:border-gold/50 bg-dark-card hover:bg-burgundy/20 transition-all duration-500 p-8 cursor-default" style={{ transitionDelay: `${i * 0.08}s` }}>
-              <div className="absolute top-0 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-500" />
-              <div className="font-cormorant text-gold/20 text-6xl font-light absolute top-4 right-4 group-hover:text-gold/40 transition-colors duration-300">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-cormorant text-2xl text-ivory mb-1 group-hover:text-gold transition-colors duration-300">{art.title}</h3>
-                <p className="text-gold/50 text-xs uppercase tracking-widest mb-4">{art.period}</p>
-                <p className="text-ivory/55 text-sm leading-relaxed">{art.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════ GALLERY ══════════ */}
-      <section ref={(el) => (sectionRefs.current[4] = el)} className="min-h-screen py-24 px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="reveal text-center mb-16">
-            <p className="text-gold/60 tracking-[0.3em] uppercase text-sm mb-3">Галерея</p>
-            <h2 className="font-cormorant text-5xl md:text-6xl text-ivory font-light">
-              Образы <span className="gold-shimmer">Величия</span>
+      {/* ══ 2. ПОЧЕМУ Я ВЫБРАЛА ЭТУ ТЕМУ ══ */}
+      <section ref={(el) => (refs.current[1] = el)} className="min-h-screen flex flex-col justify-center py-20 px-8">
+        <div className="max-w-5xl mx-auto w-full">
+          <div className="reveal text-center mb-14">
+            <p className="text-gold/60 tracking-[0.3em] uppercase text-xs mb-3">Введение</p>
+            <h2 className="font-cormorant text-5xl md:text-6xl font-light text-ivory">
+              Почему я выбрала <span className="gold-shimmer">эту тему?</span>
             </h2>
             <OrnamentLine />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4 reveal">
-            <div className="md:col-span-2 overflow-hidden group relative h-80">
-              <img src={INTERIOR_IMG} alt="Императорский интерьер" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/70 to-transparent" />
-              <div className="absolute bottom-6 left-6">
-                <p className="font-cormorant text-gold text-xl">Парадный зал</p>
-                <p className="text-ivory/60 text-sm">Императорский дворец</p>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="overflow-hidden group relative flex-1 h-36">
-                <img src={HERO_BG} alt="Зимний дворец" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <p className="font-cormorant text-gold text-lg">Зимний дворец</p>
-                </div>
-              </div>
-              <div className="overflow-hidden group relative flex-1 h-36">
-                <img src={FABERGE_IMG} alt="Яйцо Фаберже" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/70 to-transparent" />
-                <div className="absolute bottom-3 left-3">
-                  <p className="font-cormorant text-gold text-lg">Яйцо Фаберже</p>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="reveal">
+              <div className="relative overflow-hidden">
+                <img src={IMG_ESTATE} alt="Усадьба Полотняный Завод" className="w-full h-72 object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1C1108]/60 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                  <p className="font-cormorant text-gold text-lg">Усадьба Полотняный Завод</p>
+                  <p className="text-ivory/50 text-xs">Калужская область</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="reveal mt-16 text-center border-y border-gold/20 py-12">
-            <div className="font-cormorant text-gold text-6xl leading-none mb-4">"</div>
-            <blockquote className="font-cormorant italic text-2xl md:text-3xl text-ivory/80 max-w-3xl mx-auto leading-relaxed">
-              Россия не просто страна — это целый мир, где каждый камень помнит историю, а каждый закат освещает будущее.
-            </blockquote>
-            <div className="mt-6 text-gold/50 text-sm tracking-widest uppercase">— Из дневников путешественников</div>
+            <div className="reveal space-y-5" style={{ transitionDelay: "0.15s" }}>
+              <div className="border-l-2 border-gold/50 pl-5">
+                <p className="font-cormorant italic text-ivory/70 text-lg leading-relaxed">
+                  «Когда нам задали проект о достоянии России, все подумали про Кремль или Байкал. А я вспомнила слова учительницы:»
+                </p>
+              </div>
+              <div className="bg-burgundy/25 border border-gold/20 p-5">
+                <p className="font-cormorant text-gold text-2xl italic text-center">
+                  «Россия — это там,<br />где вы живёте»
+                </p>
+              </div>
+              <p className="text-ivory/65 text-sm leading-relaxed">
+                Я живу в посёлке Товарково, и мы с родителями ездили в музей «Полотняный Завод». Это место — <strong className="text-gold">настоящее сокровище!</strong>
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                {[
+                  { icon: "Target", text: "Цель: доказать, что история рядом с нами" },
+                  { icon: "ListChecks", text: "Узнать, кем прославлена усадьба" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-ivory/50 text-xs">
+                    <Icon name={item.icon} fallback="Circle" size={14} className="text-gold/60 flex-shrink-0" />
+                    <span>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════ CONTACT ══════════ */}
-      <section ref={(el) => (sectionRefs.current[5] = el)} className="relative min-h-screen flex items-center justify-center py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-burgundy-dark/40 via-transparent to-transparent" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-          <div className="w-96 h-96 border border-gold rounded-full absolute" />
-          <div className="w-72 h-72 border border-gold rounded-full absolute" />
-          <div className="w-48 h-48 border border-gold rounded-full absolute" />
-        </div>
-
-        <div className="relative z-10 max-w-3xl mx-auto px-8 text-center reveal">
-          <p className="text-gold/60 tracking-[0.3em] uppercase text-sm mb-6">Связаться с нами</p>
-          <h2 className="font-cormorant text-5xl md:text-6xl text-ivory font-light mb-4">
-            Присоединяйтесь к <span className="gold-shimmer">Истории</span>
+      {/* ══ 3. ТРИ ЧУДА — заголовок ══ */}
+      <section ref={(el) => (refs.current[2] = el)} className="min-h-[50vh] flex flex-col justify-center items-center py-16 px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-burgundy/20 border-y border-gold/15" />
+        <div className="relative z-10 text-center reveal max-w-3xl">
+          <p className="text-gold/60 tracking-[0.3em] uppercase text-xs mb-3">Главное открытие</p>
+          <h2 className="font-cormorant text-5xl md:text-7xl font-light text-ivory">
+            Три чуда<br /><span className="gold-shimmer">Полотняного Завода</span>
           </h2>
           <OrnamentLine />
-          <p className="text-ivory/60 mt-6 mb-12 font-cormorant italic text-xl leading-relaxed">
-            Приглашаем вас стать частью этого культурного путешествия. Узнайте больше о программах, экскурсиях и специальных мероприятиях.
+          <p className="font-cormorant italic text-ivory/55 text-xl mt-4">
+            Каждое из них — особое, живое и настоящее
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="group px-10 py-4 bg-gold hover:bg-gold-light text-dark-bg font-golos font-semibold tracking-widest text-sm uppercase transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 inline-flex items-center gap-2 justify-center">
-              <Icon name="Mail" size={16} />
-              Написать нам
-            </button>
-            <button className="px-10 py-4 border border-gold/50 hover:border-gold text-gold hover:bg-gold/10 tracking-widest text-sm uppercase transition-all duration-300 inline-flex items-center gap-2 justify-center">
-              <Icon name="Phone" size={16} />
-              Позвонить
-            </button>
-          </div>
-
-          <div className="mt-16 grid grid-cols-3 gap-8 border-t border-gold/20 pt-12">
-            {[
-              { icon: "MapPin", text: "Санкт-Петербург, Дворцовая площадь, 2" },
-              { icon: "Phone", text: "+7 (812) 000-00-00" },
-              { icon: "Globe", text: "imperial-russia.ru" },
-            ].map((c, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 text-ivory/50 hover:text-gold/70 transition-colors duration-300 cursor-default">
-                <Icon name={c.icon} fallback="MapPin" size={18} className="text-gold/60" />
-                <span className="text-xs text-center leading-relaxed">{c.text}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* ══════════ FOOTER ══════════ */}
-      <footer className="border-t border-gold/20 py-8 text-center">
-        <div className="font-cormorant text-gold/60 text-lg italic">Императорское наследие России</div>
-        <div className="text-ivory/20 text-xs mt-2 tracking-widest uppercase">Основано в 862 году · Продолжается по сей день</div>
-      </footer>
+      {/* ══ 4–6. ЧУДЕСА ══ */}
+      {wonders.map((w, i) => (
+        <section key={i} ref={(el) => (refs.current[3 + i] = el)} className="min-h-screen flex flex-col justify-center py-20 px-8">
+          <div className="max-w-5xl mx-auto w-full">
+            <div className={`grid md:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+              {/* Фото */}
+              <div className="reveal">
+                <div className="relative overflow-hidden group">
+                  <img src={w.img} alt={w.title} className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1C1108]/70 to-transparent" />
+                  <div className="absolute top-4 left-4 w-10 h-10 border border-gold/50 flex items-center justify-center bg-[#1C1108]/50">
+                    <span className="font-cormorant text-gold text-xl font-light">{w.num}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Текст */}
+              <div className="reveal space-y-5" style={{ transitionDelay: "0.12s" }}>
+                <div>
+                  <p className="text-gold/60 tracking-[0.3em] uppercase text-xs mb-2">Чудо {w.num}</p>
+                  <h3 className="font-cormorant text-4xl md:text-5xl font-light text-ivory mb-1">
+                    {w.title}
+                  </h3>
+                  <p className="text-gold/60 text-sm italic font-cormorant">{w.subtitle}</p>
+                </div>
+                <OrnamentLine />
+                <p className="text-ivory/70 text-base leading-relaxed">
+                  {w.text}
+                </p>
+                <div className="bg-[#2A1A08]/80 border border-gold/20 p-4 flex gap-3 items-start">
+                  <Icon name="Star" fallback="Info" size={15} className="text-gold mt-0.5 flex-shrink-0" />
+                  <p className="text-ivory/50 text-xs leading-relaxed italic">{w.fact}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* ══ 7. ВЫВОД ══ */}
+      <section ref={(el) => (refs.current[6] = el)} className="min-h-screen flex flex-col justify-center py-20 px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: `url(${IMG_PARK})` }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1C1108] via-[#1C1108]/95 to-[#1C1108]" />
+
+        <div className="relative z-10 max-w-3xl mx-auto w-full">
+          <div className="reveal text-center mb-12">
+            <p className="text-gold/60 tracking-[0.3em] uppercase text-xs mb-3">Заключение</p>
+            <h2 className="font-cormorant text-5xl md:text-6xl font-light text-ivory">
+              <span className="gold-shimmer">Вывод</span>
+            </h2>
+            <OrnamentLine />
+          </div>
+
+          <div className="reveal space-y-6">
+            <div className="border border-gold/25 bg-[#2A1208]/60 p-8">
+              <p className="font-cormorant text-xl text-ivory/80 leading-relaxed text-center italic">
+                «Я поняла, что достояние России — это каждый уголок нашей страны, где помнят историю.»
+              </p>
+            </div>
+
+            <p className="text-ivory/65 text-base leading-relaxed text-center">
+              Усадьба Полотняный Завод и музей «Бузеон» находятся в часе езды от моего посёлка Товарково, но они <strong className="text-gold">известны на всю страну!</strong>
+            </p>
+
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              {[
+                { num: "~1 час", label: "езды от Товарково" },
+                { num: "XVIII век", label: "основана усадьба" },
+                { num: "1 в России", label: "музей бумаги" },
+              ].map((s, i) => (
+                <div key={i} className="text-center border border-gold/20 p-4 bg-[#1C1108]/60 reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+                  <div className="font-cormorant text-gold text-2xl font-light">{s.num}</div>
+                  <div className="text-ivory/40 text-xs uppercase tracking-wider mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center pt-6 border-t border-gold/20 reveal">
+              <p className="font-cormorant italic text-ivory/50 text-lg">
+                «Я горжусь, что живу в Калужской области. Россия держится на таких маленьких, но очень важных местах.»
+              </p>
+              <div className="mt-6">
+                <p className="text-gold/60 text-sm tracking-widest uppercase">Ксения Свитцова</p>
+                <p className="text-ivory/30 text-xs mt-1">3 «А» класс · МБОУ «Первая школа» · п. Товарково</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer className="relative z-10 mt-16 text-center border-t border-gold/15 pt-6">
+          <div className="font-cormorant text-gold/40 text-sm italic">Усадьба Полотняный Завод · Калужская область</div>
+        </footer>
+      </section>
     </div>
   );
 }
